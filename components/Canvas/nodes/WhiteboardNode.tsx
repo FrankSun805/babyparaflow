@@ -71,20 +71,53 @@ export const WhiteboardNode: React.FC<WhiteboardNodeProps> = ({ title, data, loa
          >
             {data.elements.map(el => {
                 const stroke = '#64748b';
-                const fill = '#ffffff';
+                const fill = el.color && el.color.startsWith('#f') ? el.color : '#ffffff';
                 const textFill = '#0f172a';
+                const fontSize = 12;
+                
                 switch (el.type) {
                     case 'rect':
-                        return <rect key={el.id} x={el.x} y={el.y} width={el.width} height={el.height} stroke={stroke} fill={fill} rx={4} strokeWidth={2} />;
+                        return (
+                            <g key={el.id}>
+                                <rect x={el.x} y={el.y} width={el.width} height={el.height} stroke={stroke} fill={fill} rx={6} strokeWidth={2} />
+                                {el.content && (
+                                    <text x={el.x + el.width/2} y={el.y + el.height/2} dominantBaseline="middle" textAnchor="middle" fill={textFill} fontSize={fontSize} fontWeight="600" fontFamily="system-ui, sans-serif">
+                                        {el.content}
+                                    </text>
+                                )}
+                            </g>
+                        );
                     case 'circle':
-                        return <ellipse key={el.id} cx={el.x + el.width/2} cy={el.y + el.height/2} rx={el.width/2} ry={el.height/2} stroke={stroke} fill={fill} strokeWidth={2} />;
+                        return (
+                            <g key={el.id}>
+                                <ellipse cx={el.x + el.width/2} cy={el.y + el.height/2} rx={el.width/2} ry={el.height/2} stroke={stroke} fill={fill} strokeWidth={2} />
+                                {el.content && (
+                                    <text x={el.x + el.width/2} y={el.y + el.height/2} dominantBaseline="middle" textAnchor="middle" fill={textFill} fontSize={fontSize} fontWeight="600" fontFamily="system-ui, sans-serif">
+                                        {el.content.split('\n').map((line, i, arr) => (
+                                            <tspan key={i} x={el.x + el.width/2} dy={i === 0 ? `${-(arr.length-1) * 0.5}em` : '1.1em'}>{line}</tspan>
+                                        ))}
+                                    </text>
+                                )}
+                            </g>
+                        );
                     case 'diamond':
                          const mx = el.x + el.width / 2;
                          const my = el.y + el.height / 2;
-                         return <polygon key={el.id} points={`${mx},${el.y} ${el.x + el.width},${my} ${mx},${el.y + el.height} ${el.x},${my}`} stroke={stroke} fill={fill} strokeWidth={2} />;
+                         return (
+                            <g key={el.id}>
+                                <polygon points={`${mx},${el.y} ${el.x + el.width},${my} ${mx},${el.y + el.height} ${el.x},${my}`} stroke={stroke} fill={fill} strokeWidth={2} />
+                                {el.content && (
+                                    <text x={mx} y={my} dominantBaseline="middle" textAnchor="middle" fill={textFill} fontSize={fontSize - 1} fontWeight="600" fontFamily="system-ui, sans-serif">
+                                        {el.content.split('\n').map((line, i, arr) => (
+                                            <tspan key={i} x={mx} dy={i === 0 ? `${-(arr.length-1) * 0.5}em` : '1.1em'}>{line}</tspan>
+                                        ))}
+                                    </text>
+                                )}
+                            </g>
+                         );
                     case 'text':
                         return (
-                            <text key={el.id} x={el.x + el.width/2} y={el.y + el.height/2} dominantBaseline="middle" textAnchor="middle" fill={textFill} fontSize={14} fontFamily="monospace">
+                            <text key={el.id} x={el.x} y={el.y + el.height/2} dominantBaseline="middle" textAnchor="start" fill={textFill} fontSize={fontSize} fontFamily="system-ui, sans-serif">
                                 {el.content}
                             </text>
                         );
