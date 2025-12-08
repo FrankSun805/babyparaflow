@@ -77,7 +77,88 @@ const MOCK_EDU_DATA = {
   profileScreens: [screen_profile_1, screen_profile_2, screen_profile_3, screen_profile_4, screen_profile_5],
   // Section 5: 直播课程流程
   liveScreens: [screen_live_1, screen_live_2, screen_live_3, screen_live_4, screen_live_5],
-  // 用户流程图
+  
+  // 信息架构图 (Information Architecture)
+  infoArchitecture: {
+    elements: [
+      // 顶层：APP
+      { id: 'app', type: 'rect' as const, x: 350, y: 30, width: 120, height: 50, content: '学习通 APP', color: '#6366F1' },
+      // 一级导航
+      { id: 'a1', type: 'arrow' as const, x: 410, y: 80, width: 0, height: 30, content: '', color: '#94a3b8' },
+      { id: 'nav', type: 'rect' as const, x: 320, y: 110, width: 180, height: 40, content: '底部导航栏', color: '#94a3b8' },
+      // 箭头到各模块
+      { id: 'a2', type: 'arrow' as const, x: 410, y: 150, width: -260, height: 40, content: '', color: '#94a3b8' },
+      { id: 'a3', type: 'arrow' as const, x: 410, y: 150, width: 0, height: 40, content: '', color: '#94a3b8' },
+      { id: 'a4', type: 'arrow' as const, x: 410, y: 150, width: 260, height: 40, content: '', color: '#94a3b8' },
+      // 三大模块
+      { id: 'home', type: 'rect' as const, x: 80, y: 190, width: 140, height: 50, content: '首页', color: '#10B981' },
+      { id: 'live', type: 'rect' as const, x: 340, y: 190, width: 140, height: 50, content: '直播', color: '#8B5CF6' },
+      { id: 'profile', type: 'rect' as const, x: 600, y: 190, width: 140, height: 50, content: '我的', color: '#F59E0B' },
+      // 首页子功能
+      { id: 'a5', type: 'arrow' as const, x: 150, y: 240, width: 0, height: 30, content: '', color: '#94a3b8' },
+      { id: 'home_sub', type: 'rect' as const, x: 30, y: 270, width: 240, height: 120, content: '', color: '#f1f5f9' },
+      { id: 't1', type: 'text' as const, x: 50, y: 285, width: 80, height: 20, content: '• 搜索课程', color: '#334155' },
+      { id: 't2', type: 'text' as const, x: 50, y: 310, width: 80, height: 20, content: '• 推荐课程', color: '#334155' },
+      { id: 't3', type: 'text' as const, x: 50, y: 335, width: 80, height: 20, content: '• 热门直播', color: '#334155' },
+      { id: 't4', type: 'text' as const, x: 50, y: 360, width: 80, height: 20, content: '• 学习进度', color: '#334155' },
+      // 直播子功能
+      { id: 'a6', type: 'arrow' as const, x: 410, y: 240, width: 0, height: 30, content: '', color: '#94a3b8' },
+      { id: 'live_sub', type: 'rect' as const, x: 290, y: 270, width: 240, height: 120, content: '', color: '#f1f5f9' },
+      { id: 't5', type: 'text' as const, x: 310, y: 285, width: 80, height: 20, content: '• 直播列表', color: '#334155' },
+      { id: 't6', type: 'text' as const, x: 310, y: 310, width: 80, height: 20, content: '• 直播间', color: '#334155' },
+      { id: 't7', type: 'text' as const, x: 310, y: 335, width: 80, height: 20, content: '• 互动问答', color: '#334155' },
+      { id: 't8', type: 'text' as const, x: 310, y: 360, width: 80, height: 20, content: '• 课程回放', color: '#334155' },
+      // 我的子功能
+      { id: 'a7', type: 'arrow' as const, x: 670, y: 240, width: 0, height: 30, content: '', color: '#94a3b8' },
+      { id: 'profile_sub', type: 'rect' as const, x: 550, y: 270, width: 240, height: 120, content: '', color: '#f1f5f9' },
+      { id: 't9', type: 'text' as const, x: 570, y: 285, width: 80, height: 20, content: '• 我的课程', color: '#334155' },
+      { id: 't10', type: 'text' as const, x: 570, y: 310, width: 80, height: 20, content: '• 我的订单', color: '#334155' },
+      { id: 't11', type: 'text' as const, x: 570, y: 335, width: 80, height: 20, content: '• 学习记录', color: '#334155' },
+      { id: 't12', type: 'text' as const, x: 570, y: 360, width: 80, height: 20, content: '• 账户设置', color: '#334155' },
+    ]
+  },
+
+  // 登录注册流程图
+  authFlow: {
+    elements: [
+      { id: 'start', type: 'circle' as const, x: 50, y: 150, width: 60, height: 60, content: '开始', color: '#6366F1' },
+      { id: 'a1', type: 'arrow' as const, x: 110, y: 180, width: 50, height: 0, content: '', color: '#94a3b8' },
+      { id: 'welcome', type: 'rect' as const, x: 160, y: 155, width: 100, height: 50, content: '欢迎页', color: '#6366F1' },
+      { id: 'a2', type: 'arrow' as const, x: 260, y: 180, width: 50, height: 0, content: '', color: '#94a3b8' },
+      { id: 'input', type: 'rect' as const, x: 310, y: 155, width: 100, height: 50, content: '输入手机号', color: '#10B981' },
+      { id: 'a3', type: 'arrow' as const, x: 410, y: 180, width: 50, height: 0, content: '', color: '#94a3b8' },
+      { id: 'code', type: 'rect' as const, x: 460, y: 155, width: 100, height: 50, content: '获取验证码', color: '#10B981' },
+      { id: 'a4', type: 'arrow' as const, x: 560, y: 180, width: 50, height: 0, content: '', color: '#94a3b8' },
+      { id: 'verify', type: 'diamond' as const, x: 610, y: 145, width: 70, height: 70, content: '验证', color: '#F59E0B' },
+      { id: 'a5', type: 'arrow' as const, x: 680, y: 180, width: 50, height: 0, content: '成功', color: '#94a3b8' },
+      { id: 'success', type: 'rect' as const, x: 730, y: 155, width: 80, height: 50, content: '注册成功', color: '#10B981' },
+      { id: 'a6', type: 'arrow' as const, x: 645, y: 215, width: 0, height: 40, content: '失败', color: '#94a3b8' },
+      { id: 'retry', type: 'rect' as const, x: 595, y: 255, width: 100, height: 40, content: '重新输入', color: '#EF4444' },
+    ]
+  },
+
+  // 搜索下单流程图
+  searchFlow: {
+    elements: [
+      { id: 'start', type: 'circle' as const, x: 50, y: 150, width: 60, height: 60, content: '首页', color: '#10B981' },
+      { id: 'a1', type: 'arrow' as const, x: 110, y: 180, width: 40, height: 0, content: '', color: '#94a3b8' },
+      { id: 'search', type: 'rect' as const, x: 150, y: 155, width: 80, height: 50, content: '点击搜索', color: '#6366F1' },
+      { id: 'a2', type: 'arrow' as const, x: 230, y: 180, width: 40, height: 0, content: '', color: '#94a3b8' },
+      { id: 'input', type: 'rect' as const, x: 270, y: 155, width: 80, height: 50, content: '输入关键词', color: '#6366F1' },
+      { id: 'a3', type: 'arrow' as const, x: 350, y: 180, width: 40, height: 0, content: '', color: '#94a3b8' },
+      { id: 'result', type: 'rect' as const, x: 390, y: 155, width: 80, height: 50, content: '搜索结果', color: '#10B981' },
+      { id: 'a4', type: 'arrow' as const, x: 470, y: 180, width: 40, height: 0, content: '', color: '#94a3b8' },
+      { id: 'detail', type: 'rect' as const, x: 510, y: 155, width: 80, height: 50, content: '课程详情', color: '#8B5CF6' },
+      { id: 'a5', type: 'arrow' as const, x: 590, y: 180, width: 40, height: 0, content: '', color: '#94a3b8' },
+      { id: 'order', type: 'rect' as const, x: 630, y: 155, width: 80, height: 50, content: '确认订单', color: '#F59E0B' },
+      { id: 'a6', type: 'arrow' as const, x: 710, y: 180, width: 40, height: 0, content: '', color: '#94a3b8' },
+      { id: 'pay', type: 'diamond' as const, x: 750, y: 145, width: 70, height: 70, content: '支付', color: '#F59E0B' },
+      { id: 'a7', type: 'arrow' as const, x: 820, y: 180, width: 40, height: 0, content: '成功', color: '#94a3b8' },
+      { id: 'success', type: 'rect' as const, x: 860, y: 155, width: 80, height: 50, content: '支付成功', color: '#10B981' },
+    ]
+  },
+
+  // 整体用户流程图
   whiteboard: {
     elements: [
       { id: 'start', type: 'circle' as const, x: 50, y: 200, width: 80, height: 80, content: '用户\n进入', color: '#6366F1' },
@@ -348,25 +429,67 @@ const App = () => {
     setNodes(prev => prev.map(n => n.id === 'node-doc-persona' ? { ...n, status: 'done', data: MOCK_EDU_DATA.docPersona } : n));
     updatePlanStatus(planMsgId, 's1', 'done');
 
-    // Phase 2: 设计用户流程
+    // Phase 2: 设计信息架构和用户流程
     await new Promise(r => setTimeout(r, 600));
     updatePlanStatus(planMsgId, 's2', 'loading');
-    addAIMessage("设计用户流程图...");
+    addAIMessage("正在设计 APP 信息架构图...");
 
     const chartX = cx - 1200;
-    const chartY = cy - 200;
-    panTo(chartX + 400, chartY + 200, 0.5);
+    const chartY = cy - 400;
+    panTo(chartX + 400, chartY + 200, 0.4);
 
-    await new Promise(r => setTimeout(r, 600));
-    const chartNode: CanvasNode = {
-      id: 'node-whiteboard-1', type: NodeType.WHITEBOARD, x: chartX, y: chartY, title: '用户流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+    // 创建信息架构图
+    await new Promise(r => setTimeout(r, 400));
+    const iaNode: CanvasNode = {
+      id: 'node-whiteboard-ia', type: NodeType.WHITEBOARD, x: chartX, y: chartY, title: 'APP 信息架构图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
     };
-    setNodes(prev => [...prev, chartNode]);
+    setNodes(prev => [...prev, iaNode]);
 
-    opId = addFileOperationMessage('create', 'whiteboard', '用户流程图', 'node-whiteboard-1');
-    await new Promise(r => setTimeout(r, 600));
+    opId = addFileOperationMessage('create', 'whiteboard', 'APP 信息架构图', 'node-whiteboard-ia');
+    await new Promise(r => setTimeout(r, 500));
     updateFileOperationStatus(opId, 'success');
-    setNodes(prev => prev.map(n => n.id === 'node-whiteboard-1' ? { ...n, status: 'done', data: MOCK_EDU_DATA.whiteboard } : n));
+    setNodes(prev => prev.map(n => n.id === 'node-whiteboard-ia' ? { ...n, status: 'done', data: MOCK_EDU_DATA.infoArchitecture } : n));
+
+    // 创建整体用户流程图
+    addAIMessage("正在设计整体用户流程图...");
+    await new Promise(r => setTimeout(r, 400));
+    const overallFlowNode: CanvasNode = {
+      id: 'node-whiteboard-overall', type: NodeType.WHITEBOARD, x: chartX + 900, y: chartY, title: '整体用户流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+    };
+    setNodes(prev => [...prev, overallFlowNode]);
+
+    opId = addFileOperationMessage('create', 'whiteboard', '整体用户流程图', 'node-whiteboard-overall');
+    await new Promise(r => setTimeout(r, 500));
+    updateFileOperationStatus(opId, 'success');
+    setNodes(prev => prev.map(n => n.id === 'node-whiteboard-overall' ? { ...n, status: 'done', data: MOCK_EDU_DATA.whiteboard } : n));
+
+    // 创建登录注册流程图
+    addAIMessage("正在设计登录注册流程图...");
+    await new Promise(r => setTimeout(r, 400));
+    const authFlowNode: CanvasNode = {
+      id: 'node-whiteboard-auth', type: NodeType.WHITEBOARD, x: chartX, y: chartY + 750, title: '登录注册流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+    };
+    setNodes(prev => [...prev, authFlowNode]);
+    panTo(chartX + 400, chartY + 750, 0.4);
+
+    opId = addFileOperationMessage('create', 'whiteboard', '登录注册流程图', 'node-whiteboard-auth');
+    await new Promise(r => setTimeout(r, 500));
+    updateFileOperationStatus(opId, 'success');
+    setNodes(prev => prev.map(n => n.id === 'node-whiteboard-auth' ? { ...n, status: 'done', data: MOCK_EDU_DATA.authFlow } : n));
+
+    // 创建搜索下单流程图
+    addAIMessage("正在设计搜索下单流程图...");
+    await new Promise(r => setTimeout(r, 400));
+    const searchFlowNode: CanvasNode = {
+      id: 'node-whiteboard-search', type: NodeType.WHITEBOARD, x: chartX + 900, y: chartY + 750, title: '搜索下单流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+    };
+    setNodes(prev => [...prev, searchFlowNode]);
+
+    opId = addFileOperationMessage('create', 'whiteboard', '搜索下单流程图', 'node-whiteboard-search');
+    await new Promise(r => setTimeout(r, 500));
+    updateFileOperationStatus(opId, 'success');
+    setNodes(prev => prev.map(n => n.id === 'node-whiteboard-search' ? { ...n, status: 'done', data: MOCK_EDU_DATA.searchFlow } : n));
+
     updatePlanStatus(planMsgId, 's2', 'done');
 
     // Phase 3-7: 生成UI原型（5个独立Section）
@@ -470,7 +593,7 @@ const App = () => {
     await new Promise(r => setTimeout(r, 600));
     panTo(cx, cy + 1800, 0.15);
     setIsProcessing(false);
-    addAIMessage("完成！你的移动端教育APP原型已生成：\n• 2份产品文档\n• 1份用户流程图\n• 5个完整流程（共27个UI屏幕）\n\n点击任意屏幕可以运行预览，也可以继续和我对话修改设计。");
+    addAIMessage("完成！你的移动端教育APP原型已生成：\n\n📄 **产品文档**\n• 产品需求文档\n• 用户画像\n\n🗺️ **架构与流程图**\n• APP 信息架构图\n• 整体用户流程图\n• 登录注册流程图\n• 搜索下单流程图\n\n📱 **UI 原型（5个流程，27个屏幕）**\n• 登录注册流程\n• 搜索下单流程\n• 我的学习流程\n• 个人中心流程\n• 直播课程流程\n\n点击任意屏幕可以运行预览，点击流程图可以编辑。");
   };
 
   // 标准处理函数
