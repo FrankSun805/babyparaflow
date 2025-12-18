@@ -4,6 +4,7 @@ import { CanvasContainer } from './components/Canvas/CanvasContainer';
 import { MarkdownModal } from './components/Editor/MarkdownModal';
 import { WhiteboardModal } from './components/Editor/WhiteboardModal';
 import { ImmersiveView } from './components/Preview/ImmersiveView';
+import { StatusView } from './components/Preview/StatusView';
 import { PinModal } from './components/Editor/PinModal';
 import { DatabaseModal } from './components/Editor/DatabaseModal';
 import { IntegrationModal } from './components/Editor/IntegrationModal';
@@ -269,6 +270,7 @@ const App = () => {
   const [editingDocId, setEditingDocId] = useState<string | null>(null);
   const [editingWhiteboardId, setEditingWhiteboardId] = useState<string | null>(null);
   const [runningScreenId, setRunningScreenId] = useState<string | null>(null);
+  const [statusViewScreenId, setStatusViewScreenId] = useState<string | null>(null);
   const [editingTableId, setEditingTableId] = useState<string | null>(null);
   const [editingIntegrationId, setEditingIntegrationId] = useState<string | null>(null);
   const [newPinPos, setNewPinPos] = useState<{x: number, y: number} | null>(null);
@@ -401,21 +403,22 @@ const App = () => {
     const cx = LAYOUT_CENTER_X;
     const cy = LAYOUT_CENTER_Y;
     const MOBILE_SPACING_X = 400;
-    const SECTION_Y_GAP = 900;
+    const SECTION_Y_GAP = 1100; // 增加间隔避免 Section 重叠
 
     // Phase 1: 分析产品需求
     updatePlanStatus(planMsgId, 's1', 'loading');
     addAIMessage("正在分析教育APP产品需求...");
     await new Promise(r => setTimeout(r, 800));
 
-    // 创建文档节点
-    const docY = cy - 600;
+    // 创建文档节点 - 放在最左侧上方，与流程图和 UI 原型完全分开
+    const docX = cx - 2200;
+    const docY = cy - 800;
     const docNodes: CanvasNode[] = [
-      { id: 'node-doc-prd', type: NodeType.DOCUMENT, x: cx - 300, y: docY, title: '产品需求文档', status: 'loading', data: null, sectionId: SECTION_IDS.DOCUMENT },
-      { id: 'node-doc-persona', type: NodeType.DOCUMENT, x: cx + 200, y: docY, title: '用户画像', status: 'loading', data: null, sectionId: SECTION_IDS.DOCUMENT },
+      { id: 'node-doc-prd', type: NodeType.DOCUMENT, x: docX, y: docY, title: '产品需求文档', status: 'loading', data: null, sectionId: SECTION_IDS.DOCUMENT },
+      { id: 'node-doc-persona', type: NodeType.DOCUMENT, x: docX + 500, y: docY, title: '用户画像', status: 'loading', data: null, sectionId: SECTION_IDS.DOCUMENT },
     ];
     setNodes(prev => [...prev, ...docNodes]);
-    panTo(cx, docY, 0.4);
+    panTo(docX + 250, docY, 0.4);
 
     await new Promise(r => setTimeout(r, 600));
     let opId = addFileOperationMessage('create', 'document', '产品需求文档', 'node-doc-prd');
@@ -434,8 +437,9 @@ const App = () => {
     updatePlanStatus(planMsgId, 's2', 'loading');
     addAIMessage("正在设计 APP 信息架构图...");
 
-    const chartX = cx - 1200;
-    const chartY = cy - 400;
+    // 流程图放在文档下方，仍在左侧区域
+    const chartX = cx - 2200;
+    const chartY = cy + 200;
     panTo(chartX + 400, chartY + 200, 0.4);
 
     // 创建信息架构图
@@ -454,7 +458,7 @@ const App = () => {
     addAIMessage("正在设计整体用户流程图...");
     await new Promise(r => setTimeout(r, 400));
     const overallFlowNode: CanvasNode = {
-      id: 'node-whiteboard-overall', type: NodeType.WHITEBOARD, x: chartX + 900, y: chartY, title: '整体用户流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+      id: 'node-whiteboard-overall', type: NodeType.WHITEBOARD, x: chartX + 950, y: chartY, title: '整体用户流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
     };
     setNodes(prev => [...prev, overallFlowNode]);
 
@@ -467,10 +471,10 @@ const App = () => {
     addAIMessage("正在设计登录注册流程图...");
     await new Promise(r => setTimeout(r, 400));
     const authFlowNode: CanvasNode = {
-      id: 'node-whiteboard-auth', type: NodeType.WHITEBOARD, x: chartX, y: chartY + 750, title: '登录注册流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+      id: 'node-whiteboard-auth', type: NodeType.WHITEBOARD, x: chartX, y: chartY + 850, title: '登录注册流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
     };
     setNodes(prev => [...prev, authFlowNode]);
-    panTo(chartX + 400, chartY + 750, 0.4);
+    panTo(chartX + 400, chartY + 850, 0.4);
 
     opId = addFileOperationMessage('create', 'whiteboard', '登录注册流程图', 'node-whiteboard-auth');
     await new Promise(r => setTimeout(r, 500));
@@ -481,7 +485,7 @@ const App = () => {
     addAIMessage("正在设计搜索下单流程图...");
     await new Promise(r => setTimeout(r, 400));
     const searchFlowNode: CanvasNode = {
-      id: 'node-whiteboard-search', type: NodeType.WHITEBOARD, x: chartX + 900, y: chartY + 750, title: '搜索下单流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
+      id: 'node-whiteboard-search', type: NodeType.WHITEBOARD, x: chartX + 950, y: chartY + 850, title: '搜索下单流程图', status: 'loading', data: null, sectionId: SECTION_IDS.CHART
     };
     setNodes(prev => [...prev, searchFlowNode]);
 
@@ -538,13 +542,16 @@ const App = () => {
       { id: 's7', title: 'Section 5: 直播课程流程', screens: MOCK_EDU_DATA.liveScreens, prefix: 'live', sectionId: SECTION_IDS.FLOW_LIVE },
     ];
 
+    // UI 原型区域 - 从 cy + 2000 开始，确保与左侧流程图完全分开
+    const UI_SECTION_START_Y = cy + 2000;
+    
     for (let sIdx = 0; sIdx < sectionConfigs.length; sIdx++) {
       const config = sectionConfigs[sIdx];
     await new Promise(r => setTimeout(r, 600));
       updatePlanStatus(planMsgId, config.id, 'loading');
       addAIMessage(`正在生成 ${config.title}...`);
 
-      const sectionY = cy + sIdx * SECTION_Y_GAP;
+      const sectionY = UI_SECTION_START_Y + sIdx * SECTION_Y_GAP;
       const startX = cx - ((config.screens.length - 1) * MOBILE_SPACING_X) / 2;
       panTo(cx, sectionY, 0.25);
 
@@ -589,9 +596,9 @@ const App = () => {
       updatePlanStatus(planMsgId, config.id, 'done');
     }
 
-    // 完成
+    // 完成 - 镜头移动到 UI 原型区域中心
     await new Promise(r => setTimeout(r, 600));
-    panTo(cx, cy + 1800, 0.15);
+    panTo(cx, UI_SECTION_START_Y + 2200, 0.12);
     setIsProcessing(false);
     addAIMessage("完成！你的移动端教育APP原型已生成：\n\n📄 **产品文档**\n• 产品需求文档\n• 用户画像\n\n🗺️ **架构与流程图**\n• APP 信息架构图\n• 整体用户流程图\n• 登录注册流程图\n• 搜索下单流程图\n\n📱 **UI 原型（5个流程，27个屏幕）**\n• 登录注册流程\n• 搜索下单流程\n• 我的学习流程\n• 个人中心流程\n• 直播课程流程\n\n点击任意屏幕可以运行预览，点击流程图可以编辑。");
   };
@@ -728,11 +735,17 @@ const App = () => {
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isCanvasSelectionMode) setIsCanvasSelectionMode(false);
+      if (e.key === 'Escape') {
+        if (statusViewScreenId) {
+          setStatusViewScreenId(null);
+        } else if (isCanvasSelectionMode) {
+          setIsCanvasSelectionMode(false);
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isCanvasSelectionMode]);
+  }, [isCanvasSelectionMode, statusViewScreenId]);
 
   return (
     <div className="flex w-full h-screen bg-moxt-theme-bg overflow-hidden">
@@ -758,26 +771,40 @@ const App = () => {
       />
 
       <main className="flex-1 relative h-full">
-        <CanvasContainer
-            nodes={nodes}
-            edges={edges}
-            pins={pins}
-            view={view}
-            onViewChange={setView}
-            onNodeMove={handleUpdateNodePosition}
-            onBatchNodeMove={handleBatchUpdateNodePosition}
-            onNodeSectionChange={handleUpdateNodeSection}
-            onAddNode={handleAddNode}
-            onEditNode={handleEditNode}
-            onRunNode={setRunningScreenId}
-            onAddPinClick={onAddPinStart}
-            onDeletePin={handleDeletePin}
-            onDeleteNodes={handleDeleteNodes}
-            isCanvasSelectionMode={isCanvasSelectionMode}
-            mentionedNodeIds={mentionedNodeIds}
-            onNodeMentionSelect={handleNodeMentionSelect}
-            onRemoveMention={handleRemoveMention}
-        />
+        {/* 条件渲染：StatusView 替换 CanvasContainer */}
+        {statusViewScreenId ? (() => {
+          const node = nodes.find(n => n.id === statusViewScreenId);
+          const screenData = node?.type === NodeType.SCREEN ? node.data as ScreenData : null;
+          return screenData ? (
+            <StatusView
+              screenData={screenData}
+              nodeId={statusViewScreenId}
+              onClose={() => setStatusViewScreenId(null)}
+            />
+          ) : null;
+        })() : (
+          <CanvasContainer
+              nodes={nodes}
+              edges={edges}
+              pins={pins}
+              view={view}
+              onViewChange={setView}
+              onNodeMove={handleUpdateNodePosition}
+              onBatchNodeMove={handleBatchUpdateNodePosition}
+              onNodeSectionChange={handleUpdateNodeSection}
+              onAddNode={handleAddNode}
+              onEditNode={handleEditNode}
+              onRunNode={setRunningScreenId}
+              onShowStatus={setStatusViewScreenId}
+              onAddPinClick={onAddPinStart}
+              onDeletePin={handleDeletePin}
+              onDeleteNodes={handleDeleteNodes}
+              isCanvasSelectionMode={isCanvasSelectionMode}
+              mentionedNodeIds={mentionedNodeIds}
+              onNodeMentionSelect={handleNodeMentionSelect}
+              onRemoveMention={handleRemoveMention}
+          />
+        )}
 
         {runningScreenId && (
           <ImmersiveView

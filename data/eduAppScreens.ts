@@ -72,7 +72,176 @@ export const screen_auth_2: ScreenData = {
         </button>
       </div>
     </div>
-  `
+  `,
+  statusVariants: [
+    {
+      id: 'invalid-format',
+      name: '格式不合法',
+      description: '用户输入了非数字字符或格式错误的手机号',
+      htmlContent: `
+        <div class="h-full bg-white flex flex-col">
+          <div class="p-4 flex items-center gap-3 border-b border-slate-100">
+            <button class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+              <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <span class="text-base font-medium text-slate-900">注册</span>
+          </div>
+          <div class="flex-1 p-6">
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold text-slate-900">输入手机号</h2>
+              <p class="text-sm text-slate-500 mt-1">我们将发送验证码到您的手机</p>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">手机号码</label>
+              <div class="relative">
+                <div class="flex items-center gap-3 px-4 py-3.5 bg-red-50 border-2 border-red-500 rounded-xl ring-4 ring-red-500/10 transition-all">
+                  <span class="text-sm font-medium text-slate-600 pr-3 border-r border-red-200">+86</span>
+                  <span class="text-sm text-slate-900">abc123xyz</span>
+                </div>
+              </div>
+              <p class="text-xs text-red-500 flex items-center gap-1.5 mt-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                手机号格式不正确，请输入11位数字
+              </p>
+            </div>
+            <button class="w-full bg-slate-100 text-slate-400 py-3.5 rounded-xl text-sm font-medium mt-6 cursor-not-allowed" disabled>
+              获取验证码
+            </button>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 'too-long',
+      name: '输入过长',
+      description: '用户输入超过11位数字',
+      htmlContent: `
+        <div class="h-full bg-white flex flex-col">
+          <div class="p-4 flex items-center gap-3 border-b border-slate-100">
+            <button class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+              <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <span class="text-base font-medium text-slate-900">注册</span>
+          </div>
+          <div class="flex-1 p-6">
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold text-slate-900">输入手机号</h2>
+              <p class="text-sm text-slate-500 mt-1">我们将发送验证码到您的手机</p>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">手机号码</label>
+              <div class="relative">
+                <div class="flex items-center gap-3 px-4 py-3.5 bg-amber-50 border-2 border-amber-500 rounded-xl ring-4 ring-amber-500/10 transition-all">
+                  <span class="text-sm font-medium text-slate-600 pr-3 border-r border-amber-200">+86</span>
+                  <span class="text-sm text-slate-900 truncate">138888888889999</span>
+                </div>
+              </div>
+              <p class="text-xs text-amber-600 flex items-center gap-1.5 mt-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+                超出长度限制，手机号最多11位
+              </p>
+            </div>
+            <button class="w-full bg-slate-100 text-slate-400 py-3.5 rounded-xl text-sm font-medium mt-6 cursor-not-allowed" disabled>
+              获取验证码
+            </button>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 'network-error',
+      name: '网络错误',
+      description: '获取验证码时网络请求失败',
+      htmlContent: `
+        <div class="h-full bg-white flex flex-col">
+          <div class="p-4 flex items-center gap-3 border-b border-slate-100">
+            <button class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+              <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <span class="text-base font-medium text-slate-900">注册</span>
+          </div>
+          <div class="flex-1 p-6">
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold text-slate-900">输入手机号</h2>
+              <p class="text-sm text-slate-500 mt-1">我们将发送验证码到您的手机</p>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">手机号码</label>
+              <div class="relative">
+                <div class="flex items-center gap-3 px-4 py-3.5 bg-white border border-slate-200 rounded-xl transition-all">
+                  <span class="text-sm font-medium text-slate-600 pr-3 border-r border-slate-200">+86</span>
+                  <span class="text-sm text-slate-900">138 8888 8888</span>
+                </div>
+              </div>
+            </div>
+            <button class="w-full bg-violet-600 text-white py-3.5 rounded-xl text-sm font-medium mt-6">
+              获取验证码
+            </button>
+            <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-red-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                  <p class="text-sm font-medium text-red-800">网络连接失败</p>
+                  <p class="text-xs text-red-600 mt-1">请检查网络连接后重试</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    {
+      id: 'loading',
+      name: '加载中',
+      description: '正在发送验证码请求',
+      htmlContent: `
+        <div class="h-full bg-white flex flex-col">
+          <div class="p-4 flex items-center gap-3 border-b border-slate-100">
+            <button class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors">
+              <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <span class="text-base font-medium text-slate-900">注册</span>
+          </div>
+          <div class="flex-1 p-6">
+            <div class="mb-8">
+              <h2 class="text-xl font-semibold text-slate-900">输入手机号</h2>
+              <p class="text-sm text-slate-500 mt-1">我们将发送验证码到您的手机</p>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700">手机号码</label>
+              <div class="relative">
+                <div class="flex items-center gap-3 px-4 py-3.5 bg-white border border-slate-200 rounded-xl transition-all">
+                  <span class="text-sm font-medium text-slate-600 pr-3 border-r border-slate-200">+86</span>
+                  <span class="text-sm text-slate-900">138 8888 8888</span>
+                </div>
+              </div>
+            </div>
+            <button class="w-full bg-violet-600 text-white py-3.5 rounded-xl text-sm font-medium mt-6 flex items-center justify-center gap-2" disabled>
+              <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              正在发送...
+            </button>
+          </div>
+        </div>
+      `
+    }
+  ]
 };
 
 export const screen_auth_3: ScreenData = {

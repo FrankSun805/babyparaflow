@@ -53,11 +53,20 @@ export interface ScreenElement {
   };
 }
 
+// 屏幕状态变体（极端状态、错误状态等）
+export interface ScreenStatusVariant {
+  id: string;
+  name: string;           // 如 "输入不合法", "内容过长", "网络错误"
+  description?: string;   // 状态描述
+  htmlContent: string;    // 该状态下的 HTML 内容
+}
+
 export interface ScreenData {
   htmlContent: string; // Raw HTML/Tailwind
   screenName: string;
   variant?: 'mobile' | 'web'; // Default to mobile if undefined
   plan?: string; // Markdown explanation of the screen logic
+  statusVariants?: ScreenStatusVariant[]; // 屏幕的不同状态变体
 }
 
 export interface FlowStep {

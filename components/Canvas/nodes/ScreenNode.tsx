@@ -1,6 +1,6 @@
 
 import React, { useRef } from 'react';
-import { Play, FileText, Lock, RefreshCw, Smartphone } from 'lucide-react';
+import { Play, Layers, Lock, RefreshCw, Smartphone } from 'lucide-react';
 import { ScreenData } from '../../../types';
 import { MOBILE_SCREEN_WIDTH, MOBILE_SCREEN_HEIGHT, WEB_SCREEN_WIDTH, WEB_SCREEN_HEIGHT } from '../../../constants';
 
@@ -9,7 +9,7 @@ interface ScreenNodeProps {
   data: ScreenData | null;
   loading?: boolean;
   onRun?: () => void;
-  onEditPlan?: () => void;
+  onShowStatus?: () => void;
 }
 
 export const ScreenNode: React.FC<ScreenNodeProps> = ({
@@ -17,7 +17,7 @@ export const ScreenNode: React.FC<ScreenNodeProps> = ({
   data,
   loading,
   onRun,
-  onEditPlan
+  onShowStatus
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -51,12 +51,12 @@ export const ScreenNode: React.FC<ScreenNodeProps> = ({
             <button
                 onClick={(e) => {
                     e.stopPropagation();
-                    onEditPlan?.();
+                    onShowStatus?.();
                 }}
-                className="px-2 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-600 text-[10px] font-medium rounded-md transition-all flex items-center gap-1 shadow-sm whitespace-nowrap"
+                className="px-2 py-1.5 bg-white border border-slate-200 hover:bg-violet-50 hover:border-violet-300 text-slate-600 hover:text-violet-600 text-[10px] font-medium rounded-md transition-all flex items-center gap-1 shadow-sm whitespace-nowrap"
             >
-                <FileText size={10} className="text-slate-400" />
-                Plan
+                <Layers size={10} className="text-slate-400" />
+                Status
             </button>
             <button
                 onClick={(e) => {

@@ -23,6 +23,7 @@ interface CanvasContainerProps {
   onAddNode: (node: CanvasNode) => void;
   onEditNode: (id: string) => void;
   onRunNode: (id: string) => void;
+  onShowStatus?: (id: string) => void;
   onAddPinClick?: (x: number, y: number) => void;
   onDeletePin?: (id: string) => void;
   onDeleteNodes?: (ids: string[]) => void;
@@ -189,6 +190,7 @@ export const CanvasContainer: React.FC<CanvasContainerProps> = ({
     onAddNode,
     onEditNode,
     onRunNode,
+    onShowStatus,
     onAddPinClick,
     onDeletePin,
     onDeleteNodes,
@@ -1000,7 +1002,7 @@ export const CanvasContainer: React.FC<CanvasContainerProps> = ({
                             data={node.data as any}
                             loading={node.status === 'loading'}
                             onRun={() => onRunNode(node.id)}
-                            onEditPlan={() => onEditNode(node.id)}
+                            onShowStatus={() => onShowStatus?.(node.id)}
                         />
                     )}
                     {node.type === NodeType.TABLE && (
